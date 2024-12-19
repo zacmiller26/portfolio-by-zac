@@ -57,7 +57,7 @@ export function MacOSWindow({
       x: isExpanded ? 20 : windowBounds.x,
       y: isExpanded ? 20 : windowBounds.y,
       width: isExpanded ? 'calc(100% - 40px)' : windowBounds.width,
-      height: isExpanded ? 'calc(100% - 40px - 100px)' : windowBounds.height,
+      height: isExpanded ? 'calc(100% - 40px - 120px)' : windowBounds.height,
       scale: 1,
       pointerEvents: 'auto' as const
     }

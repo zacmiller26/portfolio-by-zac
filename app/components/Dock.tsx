@@ -4,7 +4,7 @@ import DockContainer from '@/app/components/DockContainer'
 import { DockIcon } from '@/app/components/DockIcon'
 import { MacOSWindow } from '@/app/components/Window'
 import { windowConfigs } from '@/app/components/windows'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 export function Dock() {
   const {
@@ -17,6 +17,18 @@ export function Dock() {
     minimizeWindow,
     toggleExpandWindow
   } = useDockState(windowConfigs.length)
+
+  // On mount, open the first window after a few seconds
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      handleIconClick(0)
+    }, 1000)
+
+    return () => clearTimeout(timeout)
+
+    // Don't include handleIconClick in deps, we only want to run this once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className='min-h-screen text-white'>
@@ -114,14 +126,17 @@ export function useDockState(windowCount: number) {
     if (activeWindow === index) setActiveWindow(null)
   }
 
-  const minimizeWindow = (index: number) => {
-    setWindowStates(prev => {
-      const newStates = [...prev]
-      newStates[index].isOpen = false
-      return newStates
-    })
-    if (activeWindow === index) setActiveWindow(null)
-  }
+  const minimizeWindow = useCallback(
+    (index: number) => {
+      setWindowStates(prev => {
+        const newStates = [...prev]
+        newStates[index].isOpen = false
+        return newStates
+      })
+      if (activeWindow === index) setActiveWindow(null)
+    },
+    [setWindowStates, activeWindow]
+  )
 
   const toggleExpandWindow = (index: number) => {
     setWindowStates(prev =>
@@ -131,21 +146,24 @@ export function useDockState(windowCount: number) {
     )
   }
 
-  const handleIconClick = (index: number) => {
-    const isCurrentlyActive = activeWindow === index
-    if (isCurrentlyActive) {
-      // Minimize if already active
-      minimizeWindow(index)
-      return
-    }
+  const handleIconClick = useCallback(
+    (index: number) => {
+      const isCurrentlyActive = activeWindow === index
+      if (isCurrentlyActive) {
+        // Minimize if already active
+        minimizeWindow(index)
+        return
+      }
 
-    // Minimize currently active window if different
-    if (activeWindow !== null && activeWindow !== index) {
-      minimizeWindow(activeWindow)
-    }
+      // Minimize currently active window if different
+      if (activeWindow !== null && activeWindow !== index) {
+        minimizeWindow(activeWindow)
+      }
 
-    openWindow(index)
-  }
+      openWindow(index)
+    },
+    [activeWindow, minimizeWindow]
+  )
 
   return {
     windowStates,

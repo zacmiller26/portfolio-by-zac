@@ -31,12 +31,12 @@ export const DockIcon = forwardRef<HTMLButtonElement, DockIconProps>(
         onClick={handleClick}
         className={cn(
           'rounded-full p-4 transition-colors',
-          !isActive && 'md:hover:bg-indigo-600/20',
+          !isActive && 'md:hover:bg-indigo-600/20 md:hover:text-indigo-300',
           isActive && 'bg-indigo-600/60'
         )}
         whileHover={{ scale: 1.2 }}
         animate={controls}
-        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+        transition={{ type: 'easeInOut', duration: 0.3 }}
       >
         <Icon className='h-6 w-6' />
       </motion.button>

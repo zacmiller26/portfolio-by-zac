@@ -1,17 +1,17 @@
 import { WindowConfig } from '@/app/components/windows/types'
-import { Image } from 'lucide-react'
+import { RocketIcon } from 'lucide-react'
 
 export const windowConfig: WindowConfig = {
-  icon: Image,
-  title: 'Home',
-  id: 'home',
-  Component: PhotosWindow
+  icon: RocketIcon,
+  title: 'Apps',
+  id: 'apps',
+  Component: AppsWindow
 }
 
-function PhotosWindow() {
+function AppsWindow() {
   return (
     <div className='space-y-4'>
-      <h1 className='text-4xl font-bold'>Photos</h1>
+      <h1 className='text-4xl font-bold'>Apps</h1>
       <p className='text-white/60'>TODO: This</p>
     </div>
   )

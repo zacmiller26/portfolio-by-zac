@@ -1,17 +1,17 @@
 import { WindowConfig } from '@/app/components/windows/types'
-import { Image } from 'lucide-react'
+import { CogIcon } from 'lucide-react'
 
 export const windowConfig: WindowConfig = {
-  icon: Image,
-  title: 'Home',
-  id: 'home',
-  Component: PhotosWindow
+  icon: CogIcon,
+  title: 'Settings',
+  id: 'settings',
+  Component: SettingsWindow
 }
 
-function PhotosWindow() {
+function SettingsWindow() {
   return (
     <div className='space-y-4'>
-      <h1 className='text-4xl font-bold'>Photos</h1>
+      <h1 className='text-4xl font-bold'>Settings</h1>
       <p className='text-white/60'>TODO: This</p>
     </div>
   )
