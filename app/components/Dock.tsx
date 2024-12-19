@@ -32,25 +32,25 @@ export function Dock() {
 
   return (
     <div className='min-h-screen text-white'>
-      {windowConfigs.map((win, index) => (
-        // Always render MacOSWindow and its component.
-        // We rely on motion animations and isOpen/isExpanded states
-        // to visually show/hide instead of unmounting.
-        <MacOSWindow
-          key={index}
-          isOpen={windowStates[index].isOpen}
-          isExpanded={windowStates[index].isExpanded}
-          title={win.title}
-          dockIcon={
-            dockIconBounds[index] || { x: 0, y: 0, width: 0, height: 0 }
-          }
-          onClose={() => closeWindow(index)}
-          onMinimize={() => minimizeWindow(index)}
-          onToggleExpand={() => toggleExpandWindow(index)}
-        >
-          <win.Component />
-        </MacOSWindow>
-      ))}
+      {windowConfigs.map((win, index) => {
+        return (
+          <MacOSWindow
+            key={index}
+            isOpen={windowStates[index].isOpen}
+            isExpanded={windowStates[index].isExpanded}
+            isMounted={windowStates[index].isMounted}
+            title={win.title}
+            dockIcon={
+              dockIconBounds[index] || { x: 0, y: 0, width: 0, height: 0 }
+            }
+            onClose={() => closeWindow(index)}
+            onMinimize={() => minimizeWindow(index)}
+            onToggleExpand={() => toggleExpandWindow(index)}
+          >
+            <win.Component />
+          </MacOSWindow>
+        )
+      })}
 
       <DockContainer>
         {windowConfigs.map((win, index) => (
@@ -58,6 +58,7 @@ export function Dock() {
             key={index}
             icon={win.icon}
             onClick={() => handleIconClick(index)}
+            isMounted={windowStates[index].isMounted}
             isActive={activeWindow === index}
             ref={(el: HTMLButtonElement | null) => {
               dockIconRefs.current[index] = el
@@ -72,13 +73,15 @@ export function Dock() {
 interface WindowState {
   isOpen: boolean
   isExpanded: boolean
+  isMounted: boolean
 }
 
 export function useDockState(windowCount: number) {
   const [windowStates, setWindowStates] = useState<WindowState[]>(
     Array.from({ length: windowCount }, () => ({
       isOpen: false,
-      isExpanded: false
+      isExpanded: false,
+      isMounted: false
     }))
   )
   const [activeWindow, setActiveWindow] = useState<number | null>(null)
@@ -112,6 +115,7 @@ export function useDockState(windowCount: number) {
     setWindowStates(prev => {
       const newStates = [...prev]
       newStates[index].isOpen = true
+      newStates[index].isMounted = true
       return newStates
     })
     setActiveWindow(index)
@@ -121,6 +125,7 @@ export function useDockState(windowCount: number) {
     setWindowStates(prev => {
       const newStates = [...prev]
       newStates[index].isOpen = false
+      newStates[index].isMounted = false
       return newStates
     })
     if (activeWindow === index) setActiveWindow(null)

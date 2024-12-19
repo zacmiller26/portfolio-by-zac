@@ -11,6 +11,7 @@ interface MacOSWindowProps {
   onMinimize: () => void
   onToggleExpand: () => void
   isExpanded: boolean
+  isMounted: boolean
   dockIcon?: {
     x: number
     y: number
@@ -28,6 +29,7 @@ export function MacOSWindow({
   onMinimize,
   onToggleExpand,
   isExpanded,
+  isMounted,
   dockIcon = { x: 0, y: 0, width: 0, height: 0 },
   title,
   className
@@ -114,7 +116,7 @@ export function MacOSWindow({
         className='overflow-auto p-6'
         style={{ height: 'calc(100% - 40px)' }}
       >
-        {children}
+        {isMounted ? children : null}
       </div>
     </motion.div>
   )
