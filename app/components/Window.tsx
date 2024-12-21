@@ -2,7 +2,7 @@
 
 import { cn } from '@/lib/utils'
 import { motion } from 'framer-motion'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 interface MacOSWindowProps {
   children: React.ReactNode
@@ -21,7 +21,9 @@ interface MacOSWindowProps {
   title: string
   className?: string
 }
-
+/* TODOS:
+[ ] Reset window position when unmounted
+*/
 export function MacOSWindow({
   children,
   isOpen,
@@ -34,12 +36,29 @@ export function MacOSWindow({
   title,
   className
 }: MacOSWindowProps) {
-  const [windowBounds, setWindowBounds] = useState({
-    x: typeof window !== 'undefined' ? window.innerWidth / 2 - 250 : 0,
-    y: typeof window !== 'undefined' ? window.innerHeight / 2 - 150 : 0,
-    width: 500,
-    height: 300
-  })
+  const defaultWindowBounds = useMemo(() => {
+    if (typeof window === 'undefined') {
+      return { x: 0, y: 0, width: 500, height: 300 }
+    }
+
+    const viewportWidth = window.innerWidth
+    const viewportHeight = window.innerHeight
+
+    const maxWidth = 500
+    const maxHeight = 300
+
+    const desiredWidth = Math.min(maxWidth, viewportWidth * 0.9)
+    const desiredHeight = Math.min(maxHeight, viewportHeight * 0.7)
+
+    return {
+      x: viewportWidth / 2 - desiredWidth / 2,
+      y: viewportHeight / 2 - desiredHeight / 2,
+      width: desiredWidth,
+      height: desiredHeight
+    }
+  }, [])
+
+  const [windowBounds, setWindowBounds] = useState(defaultWindowBounds)
 
   const animateProps = useMemo(() => {
     if (!isOpen) {
@@ -64,6 +83,13 @@ export function MacOSWindow({
       pointerEvents: 'auto' as const
     }
   }, [isOpen, isExpanded, windowBounds, dockIcon])
+
+  // Reset window position when unmounted
+  useEffect(() => {
+    if (!isMounted) {
+      setWindowBounds(defaultWindowBounds)
+    }
+  }, [isMounted, defaultWindowBounds])
 
   return (
     <motion.div
