@@ -126,6 +126,7 @@ export function useDockState(windowCount: number) {
       const newStates = [...prev]
       newStates[index].isOpen = false
       newStates[index].isMounted = false
+      newStates[index].isExpanded = false
       return newStates
     })
     if (activeWindow === index) setActiveWindow(null)

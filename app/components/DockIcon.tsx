@@ -19,7 +19,7 @@ export const DockIcon = forwardRef<HTMLButtonElement, DockIconProps>(
         y: [0, -10, 0],
         transition: {
           duration: 0.7,
-          times: [0, 0.35, 0.7],
+          times: [0, 0.25, 0.5],
           ease: 'easeInOut'
         }
       })
@@ -52,7 +52,7 @@ function MountedIndicator(props: { show: boolean }) {
   return (
     <div
       className={cn(
-        'absolute -bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 transform rounded-full bg-white/20 opacity-0 shadow transition-opacity duration-200',
+        'absolute -bottom-1.5 left-1/2 h-1 w-1 -translate-x-1/2 transform rounded-full bg-white/40 opacity-0 shadow transition-opacity duration-200',
         props.show && 'opacity-100'
       )}
     />
