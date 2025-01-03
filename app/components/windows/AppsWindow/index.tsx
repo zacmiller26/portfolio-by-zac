@@ -3,7 +3,7 @@ import { RocketIcon } from 'lucide-react'
 
 export const windowConfig: WindowConfig = {
   icon: RocketIcon,
-  title: 'Apps',
+  title: 'Code Examples',
   id: 'apps',
   Component: AppsWindow
 }
