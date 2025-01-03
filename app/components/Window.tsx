@@ -1,6 +1,7 @@
 'use client'
 
 import { cn } from '@/lib/utils'
+import WindowContainer from '@/ui/WindowContainer'
 import { motion } from 'framer-motion'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -110,39 +111,38 @@ export function MacOSWindow({
           }))
         }
       }}
-      className={cn(
-        'fixed flex flex-col overflow-hidden rounded-lg border border-indigo-500/40 bg-indigo-950/80 shadow-2xl backdrop-blur-md',
-        className
-      )}
+      className={cn('fixed', className)}
       style={{ zIndex: isOpen ? 50 : 0 }}
     >
-      {/* Window Controls */}
-      <div className='flex items-center justify-between border-b border-indigo-500/40 p-3'>
-        <div className='flex gap-2'>
-          <button
-            onClick={onClose}
-            className='h-3 w-3 rounded-full bg-red-500 transition-colors hover:bg-red-600'
-          />
-          <button
-            onClick={onMinimize}
-            className='h-3 w-3 rounded-full bg-yellow-500 transition-colors hover:bg-yellow-600'
-          />
-          <button
-            onClick={onToggleExpand}
-            className='h-3 w-3 rounded-full bg-green-500 transition-colors hover:bg-green-600'
-          />
+      <WindowContainer>
+        {/* Window Controls */}
+        <div className='flex items-center justify-between border-b border-indigo-500/40 p-3'>
+          <div className='flex gap-2'>
+            <button
+              onClick={onClose}
+              className='h-3 w-3 rounded-full bg-red-500 transition-colors hover:bg-red-600'
+            />
+            <button
+              onClick={onMinimize}
+              className='h-3 w-3 rounded-full bg-yellow-500 transition-colors hover:bg-yellow-600'
+            />
+            <button
+              onClick={onToggleExpand}
+              className='h-3 w-3 rounded-full bg-green-500 transition-colors hover:bg-green-600'
+            />
+          </div>
+          <div className='font-mono text-sm text-indigo-200/50'>{title}</div>
+          <div className='w-16' /> {/* Spacer to center the title */}
         </div>
-        <div className='font-mono text-sm text-indigo-200/50'>{title}</div>
-        <div className='w-16' /> {/* Spacer to center the title */}
-      </div>
 
-      {/* Window Content */}
-      <div
-        className='overflow-auto p-6'
-        style={{ height: 'calc(100% - 40px)' }}
-      >
-        {isMounted ? children : null}
-      </div>
+        {/* Window Content */}
+        <div
+          className='overflow-auto p-6'
+          style={{ height: 'calc(100% - 40px)' }}
+        >
+          {isMounted ? children : null}
+        </div>
+      </WindowContainer>
     </motion.div>
   )
 }
