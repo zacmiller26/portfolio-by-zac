@@ -21,9 +21,7 @@ interface MacOSWindowProps {
   title: string
   className?: string
 }
-/* TODOS:
-[ ] Reset window position when unmounted
-*/
+
 export function MacOSWindow({
   children,
   isOpen,
@@ -45,7 +43,7 @@ export function MacOSWindow({
     const viewportHeight = window.innerHeight
 
     const maxWidth = 500
-    const maxHeight = 300
+    const maxHeight = 400
 
     const desiredWidth = Math.min(maxWidth, viewportWidth * 0.9)
     const desiredHeight = Math.min(maxHeight, viewportHeight * 0.7)
@@ -67,7 +65,7 @@ export function MacOSWindow({
         x: dockIcon.x,
         y: dockIcon.y,
         width: dockIcon.width,
-        height: dockIcon.height,
+        height: 'auto', // dockIcon.height,
         scale: 0.5,
         pointerEvents: 'none' as const
       }
@@ -78,7 +76,7 @@ export function MacOSWindow({
       x: isExpanded ? 20 : windowBounds.x,
       y: isExpanded ? 20 : windowBounds.y,
       width: isExpanded ? 'calc(100% - 40px)' : windowBounds.width,
-      height: isExpanded ? 'calc(100% - 40px - 120px)' : windowBounds.height,
+      height: isExpanded ? 'calc(100% - 40px - 120px)' : 'auto', //windowBounds.height,
       scale: 1,
       pointerEvents: 'auto' as const
     }
@@ -94,11 +92,12 @@ export function MacOSWindow({
   return (
     <motion.div
       initial={false}
+      layout
       animate={animateProps}
       transition={{
-        type: 'spring',
-        stiffness: 200,
-        damping: 20
+        type: 'tween',
+        ease: 'easeInOut',
+        duration: 0.3
       }}
       drag={isOpen && !isExpanded}
       dragMomentum={false}
