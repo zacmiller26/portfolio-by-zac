@@ -1,0 +1,28 @@
+name: Run Tests
+
+on:
+  push: # Trigger on every push to any branch
+  pull_request: # Trigger on every pull requests
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Run Jest tests
+      - name: Run tests
+        run: npm test
