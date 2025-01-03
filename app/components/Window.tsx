@@ -116,7 +116,7 @@ export function MacOSWindow({
     >
       <WindowContainer>
         {/* Window Controls */}
-        <div className='flex items-center justify-between border-b border-indigo-500/40 p-3'>
+        <div className='border-surface-3 flex items-center justify-between border-b p-3'>
           <div className='flex gap-2'>
             <button
               onClick={onClose}
@@ -131,7 +131,7 @@ export function MacOSWindow({
               className='h-3 w-3 rounded-full bg-green-500 transition-colors hover:bg-green-600'
             />
           </div>
-          <div className='font-mono text-sm text-indigo-200/50'>{title}</div>
+          <div className='text-primary-4 font-mono text-sm'>{title}</div>
           <div className='w-16' /> {/* Spacer to center the title */}
         </div>
 
