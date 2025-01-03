@@ -1,5 +1,14 @@
 import type { Config } from 'tailwindcss'
 
+// Generates CSS variables for a color with shades
+function cssVars(colorName: string, shades: string[]) {
+  const colorConfig: { [shade: string]: string } = {}
+  shades.forEach(shade => {
+    colorConfig[shade] = `var(--${colorName}-${shade})`
+  })
+  return colorConfig
+}
+
 export default {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -12,8 +21,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)'
+        surface: cssVars('surface', ['0', '1', '2', '3', '4', '5', '6']),
+        primary: cssVars('primary', ['0', '1', '2', '3', '4']),
+        accent: cssVars('accent', ['0', '1', '2', '3', '4', '5'])
       }
     }
   },
