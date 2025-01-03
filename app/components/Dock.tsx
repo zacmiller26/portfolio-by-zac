@@ -31,7 +31,7 @@ export function Dock() {
   }, [])
 
   return (
-    <div className='min-h-screen text-white'>
+    <div className='min-h-screen'>
       {windowConfigs.map((win, index) => {
         return (
           <MacOSWindow
