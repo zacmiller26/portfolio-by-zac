@@ -16,7 +16,7 @@ export default function StyledLink({
     <Link
       {...linkProps}
       className={cn(
-        'inline-flex items-center gap-1 text-indigo-300',
+        'text-accent-3 inline-flex items-center gap-1',
         external && 'md:hover:underline',
         linkProps.className
       )}

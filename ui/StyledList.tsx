@@ -21,7 +21,7 @@ export function StyledListItem(props: StyledListItemProps) {
   return (
     <li
       className={cn(
-        'flex gap-6 border-b border-white/10 py-4 pl-0 text-white',
+        'text-primary-1 flex gap-6 border-b border-white/10 py-4 pl-0',
         'last:border-b-0',
         props.className
       )}

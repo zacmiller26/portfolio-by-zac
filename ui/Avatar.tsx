@@ -5,7 +5,7 @@ export default function Avatar(props: { className?: string }) {
   return (
     <div
       className={cn(
-        'relative h-12 w-12 rounded-full border border-indigo-800 bg-black/20',
+        'border-surface-4 relative h-12 w-12 rounded-full border bg-black/20',
         props.className
       )}
     >

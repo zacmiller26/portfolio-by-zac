@@ -33,8 +33,8 @@ export const DockIcon = forwardRef<HTMLButtonElement, DockIconProps>(
           onClick={handleClick}
           className={cn(
             'relative rounded-full p-4 transition-colors',
-            !isActive && 'md:hover:bg-indigo-600/20 md:hover:text-indigo-300',
-            isActive && 'bg-indigo-600/60'
+            !isActive && 'md:hover:text-primary-3 md:hover:bg-white/10',
+            isActive && 'bg-surface-4'
           )}
           whileHover={{ scale: 1.2 }}
           animate={controls}
