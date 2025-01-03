@@ -8,4 +8,5 @@ html {
     theme('colors.indigo.950') 0%,
     theme('colors.slate.950') 100%
   );
+  color: theme('colors.white');
 }
