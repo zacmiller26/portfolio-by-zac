@@ -17,6 +17,19 @@ const eslintConfig = [
     rules: {
       '@typescript-eslint/no-require-imports': 'off'
     }
+  },
+  // Add global rule for unused variables
+  {
+    files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'off',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_'
+        }
+      ]
+    }
   }
 ]
 

@@ -10,7 +10,7 @@ const isLocalStorageAvailable = (() => {
     window.localStorage.setItem(testKey, 'test')
     window.localStorage.removeItem(testKey)
     return true
-  } catch (error) {
+  } catch (_error) {
     return false
   }
 })()
