@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+html,
+html[data-theme='midnight'] {
   --surface-0: theme('colors.slate.950');
   --surface-1: theme('colors.indigo.950');
   --surface-2: theme('colors.indigo.900');
@@ -22,7 +23,97 @@ html {
   --accent-2: theme('colors.teal.200');
   --accent-3: theme('colors.teal.300');
   --accent-4: theme('colors.teal.400');
+}
 
+html[data-theme='ember'] {
+  --surface-0: theme('colors.slate.950');
+  --surface-1: theme('colors.rose.950');
+  --surface-2: theme('colors.rose.900');
+  --surface-3: theme('colors.rose.800');
+  --surface-4: theme('colors.rose.700');
+  --surface-5: theme('colors.rose.600');
+  --surface-6: theme('colors.rose.500');
+
+  --primary-0: theme('colors.rose.50');
+  --primary-1: theme('colors.rose.100');
+  --primary-2: theme('colors.rose.200');
+  --primary-3: theme('colors.rose.300');
+  --primary-4: theme('colors.rose.400');
+
+  --accent-0: theme('colors.orange.50');
+  --accent-1: theme('colors.orange.100');
+  --accent-2: theme('colors.orange.200');
+  --accent-3: theme('colors.orange.300');
+  --accent-4: theme('colors.orange.400');
+}
+
+html[data-theme='ocean'] {
+  --surface-0: theme('colors.slate.950');
+  --surface-1: theme('colors.sky.950');
+  --surface-2: theme('colors.sky.900');
+  --surface-3: theme('colors.sky.800');
+  --surface-4: theme('colors.sky.700');
+  --surface-5: theme('colors.sky.600');
+  --surface-6: theme('colors.sky.500');
+
+  --primary-0: theme('colors.sky.50');
+  --primary-1: theme('colors.sky.100');
+  --primary-2: theme('colors.sky.200');
+  --primary-3: theme('colors.sky.300');
+  --primary-4: theme('colors.sky.400');
+
+  --accent-0: theme('colors.emerald.50');
+  --accent-1: theme('colors.emerald.100');
+  --accent-2: theme('colors.emerald.200');
+  --accent-3: theme('colors.emerald.300');
+  --accent-4: theme('colors.emerald.400');
+}
+
+html[data-theme='smoke'] {
+  --surface-0: theme('colors.slate.950');
+  --surface-1: theme('colors.slate.900');
+  --surface-2: theme('colors.slate.800');
+  --surface-3: theme('colors.slate.700');
+  --surface-4: theme('colors.slate.600');
+  --surface-5: theme('colors.slate.500');
+  --surface-6: theme('colors.slate.400');
+
+  --primary-0: theme('colors.slate.50');
+  --primary-1: theme('colors.slate.100');
+  --primary-2: theme('colors.slate.200');
+  --primary-3: theme('colors.slate.300');
+  --primary-4: theme('colors.slate.400');
+
+  --accent-0: theme('colors.blue.50');
+  --accent-1: theme('colors.blue.100');
+  --accent-2: theme('colors.blue.200');
+  --accent-3: theme('colors.blue.300');
+  --accent-4: theme('colors.blue.400');
+}
+
+html[data-theme='light'] {
+  --surface-0: theme('colors.slate.400');
+  --surface-1: theme('colors.slate.300');
+  --surface-2: theme('colors.slate.200');
+  --surface-3: theme('colors.slate.100');
+  --surface-4: theme('colors.slate.50');
+  --surface-5: theme('colors.white');
+  --surface-6: theme('colors.slate.50');
+
+  --primary-0: theme('colors.slate.900');
+  --primary-1: theme('colors.slate.800');
+  --primary-2: theme('colors.slate.700');
+  --primary-3: theme('colors.slate.600');
+  --primary-4: theme('colors.slate.500');
+
+  --accent-0: theme('colors.blue.900');
+  --accent-1: theme('colors.blue.800');
+  --accent-2: theme('colors.blue.700');
+  --accent-3: theme('colors.blue.600');
+  --accent-4: theme('colors.blue.500');
+}
+
+html {
   background: radial-gradient(
     circle,
     var(--surface-1) 0%,
