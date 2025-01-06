@@ -28,13 +28,15 @@ function HomeWindow() {
         </div>
       </div>
       <p className='text-primary-3'>
-        {FIRST_NAME} is a full-stack developer who{' '}
-        <em>specializes in front-end</em>, with {totalYearsOfExp}+ years of
-        experience turning ideas into impactful products.
+        Hi, I'm {FIRST_NAME}—a software engineer experienced in building
+        everything from front-end interfaces to full-stack solutions. I bring{' '}
+        {totalYearsOfExp}+ years of experience turning ideas into impactful,
+        user-friendly products.
         <br />
-        <br />H{"e's"} conceptualized and built a gaming platform used by 70M+
-        users, and led the front-end overhaul of a flagship product in an
-        industry-leading enterprise.
+        <br />
+        Some of my favorite projects include conceptualizing and building a
+        gaming platform used by 70M+ users, and leading the front-end overhaul
+        of a flagship product for an industry-leading enterprise.
       </p>
     </div>
   )
