@@ -1,25 +1,25 @@
-import { Fan, Flame, Lightbulb, Moon, Shell } from 'lucide-react'
+import { Fan, Flame, Moon, Shell, TreePine } from 'lucide-react'
 
 export const THEME_CONFIG = {
   ocean: {
     label: 'Ocean',
     icon: Shell
   },
-  midnight: {
-    label: 'Midnight',
-    icon: Moon
-  },
   ember: {
     label: 'Ember',
     icon: Flame
   },
+  emerald: {
+    label: 'Pine',
+    icon: TreePine
+  },
+  midnight: {
+    label: 'Midnight',
+    icon: Moon
+  },
   smoke: {
     label: 'Smoke',
     icon: Fan
-  },
-  light: {
-    label: 'Light',
-    icon: Lightbulb
   }
 }
 
@@ -28,6 +28,11 @@ export const DEFAULT_THEME_KEY = THEME_KEYS[0]
 export type THEME_OPTION_TYPE = (typeof THEME_KEYS)[number]
 
 export const PATTERN_CONFIG = {
+  none: {
+    label: 'None',
+    className: null,
+    previewClassName: null
+  },
   temple: {
     label: 'Temple',
     className: 'heropattern-temple-white/10 opacity-20',
@@ -52,11 +57,6 @@ export const PATTERN_CONFIG = {
     label: 'Graph Paper',
     className: 'heropattern-graphpaper-white/10 opacity-20',
     previewClassName: 'heropattern-graphpaper-white/50 opacity-50'
-  },
-  none: {
-    label: 'None',
-    className: null,
-    previewClassName: null
   }
 }
 
@@ -66,21 +66,21 @@ export const DEFAULT_PATTERN_KEY =
 export type PATTERN_OPTION_TYPE = keyof typeof PATTERN_CONFIG
 
 export const WALLPAPER_CONFIG = {
-  none: {
-    label: 'None',
-    url: null
+  winter: {
+    label: 'Winter',
+    url: '/wallpaper-2.jpg'
   },
   seattle: {
     label: 'Seattle',
     url: '/wallpaper-1.jpg'
   },
-  racing: {
-    label: 'Racing',
-    url: '/wallpaper-2.jpg'
-  },
   gaming: {
     label: 'Gaming',
     url: '/wallpaper-3.jpg'
+  },
+  none: {
+    label: 'None',
+    url: null
   }
 }
 export const WALLPAPER_KEYS = Object.keys(WALLPAPER_CONFIG)
