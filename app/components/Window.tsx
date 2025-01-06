@@ -1,8 +1,14 @@
 'use client'
 
+import { useIsMobile } from '@/lib/hooks/useIsMobile'
 import { cn } from '@/lib/utils'
 import WindowContainer from '@/ui/WindowContainer'
-import { motion } from 'framer-motion'
+import {
+  type PanInfo,
+  motion,
+  TargetAndTransition,
+  useDragControls
+} from 'framer-motion'
 import { useEffect, useMemo, useState } from 'react'
 
 interface MacOSWindowProps {
@@ -35,6 +41,10 @@ export function MacOSWindow({
   title,
   className
 }: MacOSWindowProps) {
+  const dragControls = useDragControls()
+  const isMobile = useIsMobile()
+  const isDraggable = !isMobile && isOpen && !isExpanded
+
   const defaultWindowBounds = useMemo(() => {
     if (typeof window === 'undefined') {
       return { x: 0, y: 0, width: 500, height: 300 }
@@ -59,14 +69,14 @@ export function MacOSWindow({
 
   const [windowBounds, setWindowBounds] = useState(defaultWindowBounds)
 
-  const animateProps = useMemo(() => {
+  const animateProps: TargetAndTransition = useMemo(() => {
     if (!isOpen) {
       return {
         opacity: 0,
         x: dockIcon.x,
         y: dockIcon.y,
         width: dockIcon.width,
-        height: 'auto', // dockIcon.height,
+        height: 'auto',
         scale: 0.5,
         pointerEvents: 'none' as const
       }
@@ -74,16 +84,40 @@ export function MacOSWindow({
 
     return {
       opacity: 1,
-      x: isExpanded ? 20 : windowBounds.x,
-      y: isExpanded ? 20 : windowBounds.y,
-      width: isExpanded ? 'calc(100% - 40px)' : windowBounds.width,
-      height: isExpanded ? 'calc(100% - 40px - 120px)' : 'auto', //windowBounds.height,
+      x: isExpanded ? 0 : windowBounds.x,
+      y: isExpanded ? 0 : windowBounds.y,
+      width: isExpanded ? '100%' : windowBounds.width,
+      height: isExpanded ? '100%' : 'auto',
       scale: 1,
       pointerEvents: 'auto' as const
     }
   }, [isOpen, isExpanded, windowBounds, dockIcon])
 
-  // Reset window position when unmounted
+  // Trigger the drag start event on the control bar during pointer down
+  const handleControlBarPointerDown = (e: React.PointerEvent) => {
+    if (!isDraggable) {
+      return
+    }
+
+    dragControls.start(e)
+  }
+
+  // Set the window bounds based on the drag offset when dragging ends
+  const handleWindowDragEnd = (
+    _event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo
+  ) => {
+    if (!isDraggable) {
+      return
+    }
+
+    setWindowBounds(prev => ({
+      ...prev,
+      x: prev.x + info.offset.x,
+      y: prev.y + info.offset.y
+    }))
+  }
+
   useEffect(() => {
     if (!isMounted) {
       setWindowBounds(defaultWindowBounds)
@@ -92,7 +126,6 @@ export function MacOSWindow({
 
   return (
     <motion.div
-      initial={false}
       layout
       animate={animateProps}
       transition={{
@@ -100,23 +133,23 @@ export function MacOSWindow({
         ease: 'easeInOut',
         duration: 0.3
       }}
-      drag={isOpen && !isExpanded}
+      drag={isDraggable}
+      dragControls={dragControls}
+      dragListener={false}
       dragMomentum={false}
-      onDragEnd={(_, info) => {
-        if (isOpen && !isExpanded) {
-          setWindowBounds(prev => ({
-            ...prev,
-            x: prev.x + info.offset.x,
-            y: prev.y + info.offset.y
-          }))
-        }
-      }}
-      className={cn('fixed', className)}
-      style={{ zIndex: isOpen ? 50 : 0 }}
+      initial={false}
+      onDragEnd={handleWindowDragEnd}
+      className={cn('fixed z-0', isOpen && 'z-50', className)}
     >
       <WindowContainer>
-        {/* Window Controls */}
-        <div className='border-surface-3 flex items-center justify-between border-b p-3'>
+        {/* Window Control Bar */}
+        <div
+          className={cn(
+            'border-surface-3 flex select-none items-center justify-between border-b p-3',
+            !isMobile && 'hover:cursor-move'
+          )}
+          onPointerDown={handleControlBarPointerDown}
+        >
           <div className='flex gap-2'>
             <button
               onClick={onClose}
@@ -132,7 +165,7 @@ export function MacOSWindow({
             />
           </div>
           <div className='text-primary-4 font-mono text-sm'>{title}</div>
-          <div className='w-16' /> {/* Spacer to center the title */}
+          <div className='w-16' />
         </div>
 
         {/* Window Content */}
