@@ -3,6 +3,28 @@
 @tailwind utilities;
 
 html,
+html[data-theme='ocean'] {
+  --surface-0: theme('colors.slate.950');
+  --surface-1: theme('colors.sky.950');
+  --surface-2: theme('colors.sky.900');
+  --surface-3: theme('colors.sky.800');
+  --surface-4: theme('colors.sky.700');
+  --surface-5: theme('colors.sky.600');
+  --surface-6: theme('colors.sky.500');
+
+  --primary-0: theme('colors.sky.50');
+  --primary-1: theme('colors.sky.100');
+  --primary-2: theme('colors.sky.200');
+  --primary-3: theme('colors.sky.300');
+  --primary-4: theme('colors.sky.400');
+
+  --accent-0: theme('colors.emerald.50');
+  --accent-1: theme('colors.emerald.100');
+  --accent-2: theme('colors.emerald.200');
+  --accent-3: theme('colors.emerald.300');
+  --accent-4: theme('colors.emerald.400');
+}
+
 html[data-theme='midnight'] {
   --surface-0: theme('colors.slate.950');
   --surface-1: theme('colors.indigo.950');
@@ -45,28 +67,6 @@ html[data-theme='ember'] {
   --accent-2: theme('colors.orange.200');
   --accent-3: theme('colors.orange.300');
   --accent-4: theme('colors.orange.400');
-}
-
-html[data-theme='ocean'] {
-  --surface-0: theme('colors.slate.950');
-  --surface-1: theme('colors.sky.950');
-  --surface-2: theme('colors.sky.900');
-  --surface-3: theme('colors.sky.800');
-  --surface-4: theme('colors.sky.700');
-  --surface-5: theme('colors.sky.600');
-  --surface-6: theme('colors.sky.500');
-
-  --primary-0: theme('colors.sky.50');
-  --primary-1: theme('colors.sky.100');
-  --primary-2: theme('colors.sky.200');
-  --primary-3: theme('colors.sky.300');
-  --primary-4: theme('colors.sky.400');
-
-  --accent-0: theme('colors.emerald.50');
-  --accent-1: theme('colors.emerald.100');
-  --accent-2: theme('colors.emerald.200');
-  --accent-3: theme('colors.emerald.300');
-  --accent-4: theme('colors.emerald.400');
 }
 
 html[data-theme='smoke'] {
