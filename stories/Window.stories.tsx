@@ -4,6 +4,7 @@ import AppsWindowConfig from '@/app/components/windows/AppsWindow'
 import ContactWindowConfig from '@/app/components/windows/ContactWindow'
 import HomeWindowConfig from '@/app/components/windows/HomeWindow'
 import SettingsWindowConfig from '@/app/components/windows/SettingsWindow'
+import AppearanceProvider from '@/lib/contexts/appearance-context'
 import WindowContainer from '@/ui/WindowContainer'
 
 const meta = {
@@ -14,11 +15,13 @@ const meta = {
   },
   decorators: [
     Story => (
-      <WindowContainer className='max-w-[420px] rounded-lg'>
-        <div className='p-6'>
-          <Story />
-        </div>
-      </WindowContainer>
+      <AppearanceProvider>
+        <WindowContainer className='max-w-[500px] rounded-lg'>
+          <div className='p-6'>
+            <Story />
+          </div>
+        </WindowContainer>
+      </AppearanceProvider>
     )
   ],
   tags: [],
