@@ -19,12 +19,17 @@ function HomeWindow() {
       <div className='flex items-center gap-4'>
         <Avatar className='h-24 w-24' />
         <div className='flex flex-col gap-0'>
-          <h1 className='text-4xl font-bold'>{FULL_NAME}</h1>
-          <h3 className='text-primary-4 text-lg font-semibold'>{TITLE}</h3>
+          <h1 className='text-4xl font-extrabold'>{FULL_NAME}</h1>
+          <div className='flex flex-col gap-0'>
+            <h3 className='text-accent-3 font-mono text-sm font-semibold leading-4 tracking-wider'>
+              {TITLE}
+            </h3>
+          </div>
         </div>
       </div>
       <p className='text-primary-3'>
-        {FIRST_NAME} is a full-stack engineer with {totalYearsOfExp}+ years of
+        {FIRST_NAME} is a full-stack developer who{' '}
+        <em>specializes in front-end</em>, with {totalYearsOfExp}+ years of
         experience turning ideas into impactful products.
         <br />
         <br />H{"e's"} conceptualized and built a gaming platform used by 70M+
