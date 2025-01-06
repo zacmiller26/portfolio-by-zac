@@ -114,10 +114,17 @@ html[data-theme='light'] {
 }
 
 html {
+  background-color: var(--surface-0);
+  max-height: 100dvh;
+  overflow-y: hidden;
+}
+
+body {
   background: radial-gradient(
     circle,
     var(--surface-1) 0%,
     var(--surface-0) 100%
   );
   color: var(--primary-0);
+  position: relative;
 }
