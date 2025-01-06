@@ -9,7 +9,13 @@ import {
   TargetAndTransition,
   useDragControls
 } from 'framer-motion'
-import { type RefObject, useEffect, useMemo, useState } from 'react'
+import {
+  type RefObject,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 
 interface MacOSWindowProps {
   children: React.ReactNode
@@ -51,7 +57,7 @@ export function MacOSWindow({
   const isExpanded = isMobile || isExpandedState
   const canBeExpanded = !isMobile
 
-  const calculateDefaultWindowBounds = () => {
+  const calculateDefaultWindowBounds = useCallback(() => {
     const viewportWidth = window.innerWidth
     const viewportHeight = window.innerHeight
 
@@ -72,7 +78,7 @@ export function MacOSWindow({
       width: desiredWidth,
       height: desiredHeight
     }
-  }
+  }, [containerRef])
 
   const [defaultWindowBounds, setDefaultWindowBounds] = useState(
     calculateDefaultWindowBounds()
@@ -113,7 +119,7 @@ export function MacOSWindow({
       scale: 1,
       pointerEvents: 'auto'
     }
-  }, [isOpen, isExpanded, windowBounds, dockIcon, isMobile])
+  }, [isOpen, isExpanded, windowBounds, dockIcon])
 
   const handleControlBarPointerDown = (e: React.PointerEvent) => {
     if (!isDraggable) {
@@ -166,7 +172,7 @@ export function MacOSWindow({
 
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [defaultWindowBounds])
+  }, [defaultWindowBounds, calculateDefaultWindowBounds])
 
   // set to isHidden after close animation (0.3s)
   useEffect(() => {

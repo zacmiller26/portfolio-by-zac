@@ -28,7 +28,7 @@ function HomeWindow() {
         </div>
       </div>
       <p className='text-primary-3'>
-        Hi, I'm {FIRST_NAME}—a software engineer experienced in building
+        Hi, {"I'm"} {FIRST_NAME}—a software engineer experienced in building
         everything from front-end interfaces to full-stack solutions. I bring{' '}
         {totalYearsOfExp}+ years of experience turning ideas into impactful,
         user-friendly products.
