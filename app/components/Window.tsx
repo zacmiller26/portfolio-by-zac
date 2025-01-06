@@ -45,6 +45,8 @@ export function MacOSWindow({
 }: MacOSWindowProps) {
   const dragControls = useDragControls()
   const isMobile = useIsMobile()
+  const [isHidden, setIsHidden] = useState(false)
+
   const isDraggable = !isMobile && isOpen && !isExpandedState
   const isExpanded = isMobile || isExpandedState
   const canBeExpanded = !isMobile
@@ -98,8 +100,7 @@ export function MacOSWindow({
         width: '100%',
         height: '100%',
         scale: 1,
-        pointerEvents: 'auto',
-        position: 'absolute' // inherit parent relative position
+        pointerEvents: 'auto'
       }
     }
 
@@ -167,6 +168,20 @@ export function MacOSWindow({
     return () => window.removeEventListener('resize', handleResize)
   }, [defaultWindowBounds])
 
+  // set to isHidden after close animation (0.3s)
+  useEffect(() => {
+    if (isOpen) {
+      setIsHidden(false)
+      return
+    }
+
+    const timeout = setTimeout(() => {
+      setIsHidden(true)
+    }, 300)
+
+    return () => clearTimeout(timeout)
+  }, [isOpen])
+
   return (
     <motion.div
       animate={animateProps}
@@ -184,7 +199,7 @@ export function MacOSWindow({
       className={cn(
         'absolute z-0',
         isOpen && 'z-50',
-        !isOpen && 'hidden',
+        isHidden && 'hidden',
         isExpanded && 'inset-0',
         className
       )}
