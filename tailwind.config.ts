@@ -27,5 +27,14 @@ export default {
       }
     }
   },
+  safelist: [
+    {
+      pattern:
+        /heropattern-(temple|wiggle|signal|polkadots|graphpaper)-white\/(10|50)/
+    },
+    {
+      pattern: /opacity-(10|20|50|100)/
+    }
+  ],
   plugins: [require('tailwindcss-hero-patterns')]
 } satisfies Config

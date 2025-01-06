@@ -1,6 +1,10 @@
 import { Fan, Flame, Lightbulb, Moon, Shell } from 'lucide-react'
 
 export const THEME_CONFIG = {
+  ocean: {
+    label: 'Ocean',
+    icon: Shell
+  },
   midnight: {
     label: 'Midnight',
     icon: Moon
@@ -8,10 +12,6 @@ export const THEME_CONFIG = {
   ember: {
     label: 'Ember',
     icon: Flame
-  },
-  ocean: {
-    label: 'Ocean',
-    icon: Shell
   },
   smoke: {
     label: 'Smoke',
@@ -30,28 +30,28 @@ export type THEME_OPTION_TYPE = (typeof THEME_KEYS)[number]
 export const PATTERN_CONFIG = {
   temple: {
     label: 'Temple',
-    className: 'heropattern-temple-white/10 opacity-10',
-    previewClassName: 'heropattern-temple-white/10 opacity-100'
+    className: 'heropattern-temple-white/10 opacity-20',
+    previewClassName: 'heropattern-temple-white/50 opacity-50'
   },
   wiggle: {
     label: 'Wiggle',
     className: 'heropattern-wiggle-white/10 opacity-20',
-    previewClassName: 'heropattern-wiggle-white/10 opacity-100'
+    previewClassName: 'heropattern-wiggle-white/50 opacity-50'
   },
   signal: {
     label: 'Signal',
     className: 'heropattern-signal-white/10 opacity-20',
-    previewClassName: 'heropattern-signal-white/10 opacity-100'
+    previewClassName: 'heropattern-signal-white/50 opacity-50'
   },
   polkadots: {
     label: 'Polka Dots',
     className: 'heropattern-polkadots-white/10 opacity-20',
-    previewClassName: 'heropattern-polkadots-white/10 opacity-100'
+    previewClassName: 'heropattern-polkadots-white/50 opacity-50'
   },
   graphpaper: {
     label: 'Graph Paper',
     className: 'heropattern-graphpaper-white/10 opacity-20',
-    previewClassName: 'heropattern-graphpaper-white/10 opacity-100'
+    previewClassName: 'heropattern-graphpaper-white/50 opacity-50'
   },
   none: {
     label: 'None',
