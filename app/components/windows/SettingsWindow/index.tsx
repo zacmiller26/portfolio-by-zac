@@ -14,16 +14,30 @@ export const windowConfig: WindowConfig = {
 function SettingsWindow() {
   return (
     <div className='space-y-6'>
-      <p className='text-primary-1'>Theme</p>
-      <ThemeSelector />
+      <SelectorContainer>
+        <SelectorLabel>Theme</SelectorLabel>
+        <ThemeSelector />
+      </SelectorContainer>
 
-      <p className='text-primary-1'>Pattern</p>
-      <PatternSelector />
+      <SelectorContainer>
+        <SelectorLabel>Pattern</SelectorLabel>
+        <PatternSelector />
+      </SelectorContainer>
 
-      <p className='text-primary-1'>Wallpaper</p>
-      <WallpaperSelector />
+      <SelectorContainer>
+        <SelectorLabel>Wallpaper</SelectorLabel>
+        <WallpaperSelector />
+      </SelectorContainer>
     </div>
   )
+}
+
+function SelectorContainer({ children }: CommonProps) {
+  return <div className='space-y-2'>{children}</div>
+}
+
+function SelectorLabel({ children }: CommonProps) {
+  return <p className='text-accent-3 text-sm font-semibold'>{children}</p>
 }
 
 export default windowConfig

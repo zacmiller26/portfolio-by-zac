@@ -26,14 +26,17 @@ export default function PatternSelector() {
               key={pattern}
               onClick={() => setPattern(pattern as PatternType)}
               className={cn(
-                'bg-surface-2 text-primary-2 flex items-center gap-1.5 rounded-md text-xs font-semibold',
+                'bg-surface-2 text-primary-2 flex items-center gap-1.5 rounded-md border-2 border-transparent text-xs font-semibold',
                 !isActive && 'md:hover:bg-surface-3',
-                isActive && 'bg-surface-4 text-primary-0 shadow'
+                isActive && 'bg-surface-4 border-accent-3 text-primary-0 shadow'
               )}
             >
               {previewClassName && (
                 <span
-                  className={cn('inset-0 block h-12 w-12', previewClassName)}
+                  className={cn(
+                    'inset-0 block h-12 w-12 rounded-md',
+                    previewClassName
+                  )}
                 />
               )}
               {!previewClassName && (
