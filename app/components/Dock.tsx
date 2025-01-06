@@ -25,7 +25,7 @@ export function Dock() {
   useEffect(() => {
     const timeout = setTimeout(() => {
       handleIconClick(0)
-    }, 1000)
+    }, 500)
 
     return () => clearTimeout(timeout)
 
