@@ -2,13 +2,14 @@ import { cn } from '@/lib/utils'
 
 export default function DockContainer(props: { children: React.ReactNode }) {
   return (
-    <div className='fixed bottom-10 left-1/2 z-50 -translate-x-1/2'>
+    <div className='z-50'>
       <div
         className={cn(
-          'border-surface-3 bg-surface-1 flex items-center gap-3 rounded-2xl border p-2 backdrop-blur-md'
+          'border-surface-3 relative rounded-2xl border p-2 backdrop-blur-md'
         )}
       >
-        {props.children}
+        <div className='bg-surface-1 absolute left-0 top-0 h-full w-full rounded-2xl opacity-40' />
+        <div className='relative flex items-center gap-3'>{props.children}</div>
       </div>
     </div>
   )

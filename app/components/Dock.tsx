@@ -18,6 +18,9 @@ export function Dock() {
     toggleExpandWindow
   } = useDockState(windowConfigs.length)
 
+  // Ref to the window container to calculate window bounds
+  const windowContainerRef = useRef<HTMLDivElement | null>(null)
+
   // On mount, open the first window after a few seconds
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -31,41 +34,50 @@ export function Dock() {
   }, [])
 
   return (
-    <div className='min-h-screen'>
-      {windowConfigs.map((win, index) => {
-        return (
-          <MacOSWindow
-            key={index}
-            isOpen={windowStates[index].isOpen}
-            isExpanded={windowStates[index].isExpanded}
-            isMounted={windowStates[index].isMounted}
-            title={win.title}
-            dockIcon={
-              dockIconBounds[index] || { x: 0, y: 0, width: 0, height: 0 }
-            }
-            onClose={() => closeWindow(index)}
-            onMinimize={() => minimizeWindow(index)}
-            onToggleExpand={() => toggleExpandWindow(index)}
-          >
-            <win.Component />
-          </MacOSWindow>
-        )
-      })}
+    <div className='flex min-h-dvh flex-col'>
+      <div className='relative flex flex-1 flex-col p-2 md:p-4'>
+        <div className='relative flex-1 p-4' ref={windowContainerRef}>
+          {windowContainerRef.current &&
+            // render windows once container is mounted
+            windowConfigs.map((win, index) => {
+              return (
+                <MacOSWindow
+                  key={index}
+                  isOpen={windowStates[index].isOpen}
+                  isExpanded={windowStates[index].isExpanded}
+                  isMounted={windowStates[index].isMounted}
+                  title={win.title}
+                  dockIcon={
+                    dockIconBounds[index] || { x: 0, y: 0, width: 0, height: 0 }
+                  }
+                  onClose={() => closeWindow(index)}
+                  onMinimize={() => minimizeWindow(index)}
+                  onToggleExpand={() => toggleExpandWindow(index)}
+                  forwardedContainerRef={windowContainerRef}
+                >
+                  <win.Component />
+                </MacOSWindow>
+              )
+            })}
+        </div>
+      </div>
 
-      <DockContainer>
-        {windowConfigs.map((win, index) => (
-          <DockIcon
-            key={index}
-            icon={win.icon}
-            onClick={() => handleIconClick(index)}
-            isMounted={windowStates[index].isMounted}
-            isActive={activeWindow === index}
-            ref={(el: HTMLButtonElement | null) => {
-              dockIconRefs.current[index] = el
-            }}
-          />
-        ))}
-      </DockContainer>
+      <div className='flex justify-center pb-4 md:pb-10'>
+        <DockContainer>
+          {windowConfigs.map((win, index) => (
+            <DockIcon
+              key={index}
+              icon={win.icon}
+              onClick={() => handleIconClick(index)}
+              isMounted={windowStates[index].isMounted}
+              isActive={activeWindow === index}
+              ref={(el: HTMLButtonElement | null) => {
+                dockIconRefs.current[index] = el
+              }}
+            />
+          ))}
+        </DockContainer>
+      </div>
     </div>
   )
 }

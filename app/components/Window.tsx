@@ -9,7 +9,7 @@ import {
   TargetAndTransition,
   useDragControls
 } from 'framer-motion'
-import { useEffect, useMemo, useState } from 'react'
+import { type RefObject, useEffect, useMemo, useState } from 'react'
 
 interface MacOSWindowProps {
   children: React.ReactNode
@@ -27,6 +27,7 @@ interface MacOSWindowProps {
   }
   title: string
   className?: string
+  forwardedContainerRef: RefObject<HTMLDivElement | null>
 }
 
 export function MacOSWindow({
@@ -35,23 +36,27 @@ export function MacOSWindow({
   onClose,
   onMinimize,
   onToggleExpand,
-  isExpanded,
   isMounted,
-  dockIcon = { x: 0, y: 0, width: 0, height: 0 },
   title,
-  className
+  className,
+  dockIcon = { x: 0, y: 0, width: 0, height: 0 },
+  isExpanded: isExpandedState,
+  forwardedContainerRef: containerRef
 }: MacOSWindowProps) {
   const dragControls = useDragControls()
   const isMobile = useIsMobile()
-  const isDraggable = !isMobile && isOpen && !isExpanded
+  const isDraggable = !isMobile && isOpen && !isExpandedState
+  const isExpanded = isMobile || isExpandedState
+  const canBeExpanded = !isMobile
 
-  const defaultWindowBounds = useMemo(() => {
-    if (typeof window === 'undefined') {
-      return { x: 0, y: 0, width: 500, height: 300 }
-    }
-
+  const calculateDefaultWindowBounds = () => {
     const viewportWidth = window.innerWidth
     const viewportHeight = window.innerHeight
+
+    const parentWidth =
+      containerRef.current?.getBoundingClientRect().width || viewportWidth
+    const parentHeight =
+      containerRef.current?.getBoundingClientRect().height || viewportHeight
 
     const maxWidth = 500
     const maxHeight = 400
@@ -60,13 +65,16 @@ export function MacOSWindow({
     const desiredHeight = Math.min(maxHeight, viewportHeight * 0.7)
 
     return {
-      x: viewportWidth / 2 - desiredWidth / 2,
-      y: viewportHeight / 2 - desiredHeight / 2,
+      x: parentWidth / 2 - desiredWidth / 2,
+      y: parentHeight / 2 - desiredHeight / 2,
       width: desiredWidth,
       height: desiredHeight
     }
-  }, [])
+  }
 
+  const [defaultWindowBounds, setDefaultWindowBounds] = useState(
+    calculateDefaultWindowBounds()
+  )
   const [windowBounds, setWindowBounds] = useState(defaultWindowBounds)
 
   const animateProps: TargetAndTransition = useMemo(() => {
@@ -78,22 +86,34 @@ export function MacOSWindow({
         width: dockIcon.width,
         height: 'auto',
         scale: 0.5,
-        pointerEvents: 'none' as const
+        pointerEvents: 'none'
+      }
+    }
+
+    if (isExpanded) {
+      return {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        width: '100%',
+        height: '100%',
+        scale: 1,
+        pointerEvents: 'auto',
+        position: 'absolute' // inherit parent relative position
       }
     }
 
     return {
       opacity: 1,
-      x: isExpanded ? 0 : windowBounds.x,
-      y: isExpanded ? 0 : windowBounds.y,
-      width: isExpanded ? '100%' : windowBounds.width,
-      height: isExpanded ? '100%' : 'auto',
+      x: windowBounds.x,
+      y: windowBounds.y,
+      width: windowBounds.width,
+      height: 'auto',
       scale: 1,
-      pointerEvents: 'auto' as const
+      pointerEvents: 'auto'
     }
-  }, [isOpen, isExpanded, windowBounds, dockIcon])
+  }, [isOpen, isExpanded, windowBounds, dockIcon, isMobile])
 
-  // Trigger the drag start event on the control bar during pointer down
   const handleControlBarPointerDown = (e: React.PointerEvent) => {
     if (!isDraggable) {
       return
@@ -102,7 +122,6 @@ export function MacOSWindow({
     dragControls.start(e)
   }
 
-  // Set the window bounds based on the drag offset when dragging ends
   const handleWindowDragEnd = (
     _event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo
@@ -124,9 +143,32 @@ export function MacOSWindow({
     }
   }, [isMounted, defaultWindowBounds])
 
+  // Recalculate bounds on resize if still using default bounds
+  useEffect(() => {
+    const handleResize = () => {
+      const newDefaultBounds = calculateDefaultWindowBounds()
+      setDefaultWindowBounds(newDefaultBounds)
+
+      // Only update window bounds if still using the default
+      setWindowBounds(prevBounds => {
+        if (
+          prevBounds.x === defaultWindowBounds.x &&
+          prevBounds.y === defaultWindowBounds.y &&
+          prevBounds.width === defaultWindowBounds.width &&
+          prevBounds.height === defaultWindowBounds.height
+        ) {
+          return newDefaultBounds
+        }
+        return prevBounds
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [defaultWindowBounds])
+
   return (
     <motion.div
-      layout
       animate={animateProps}
       transition={{
         type: 'tween',
@@ -139,14 +181,19 @@ export function MacOSWindow({
       dragMomentum={false}
       initial={false}
       onDragEnd={handleWindowDragEnd}
-      className={cn('fixed z-0', isOpen && 'z-50', className)}
+      className={cn(
+        'absolute z-0',
+        isOpen && 'z-50',
+        !isOpen && 'hidden',
+        isExpanded && 'inset-0',
+        className
+      )}
     >
-      <WindowContainer>
-        {/* Window Control Bar */}
+      <WindowContainer className={isExpanded ? 'h-full' : ''}>
         <div
           className={cn(
-            'border-surface-3 flex select-none items-center justify-between border-b p-3',
-            !isMobile && 'hover:cursor-move'
+            'border-surface-3 text-primary-4 flex select-none items-center justify-between border-b p-3',
+            !isMobile && 'md:hover:text-primary-3 hover:cursor-move'
           )}
           onPointerDown={handleControlBarPointerDown}
         >
@@ -159,19 +206,22 @@ export function MacOSWindow({
               onClick={onMinimize}
               className='h-3 w-3 rounded-full bg-yellow-500 transition-colors hover:bg-yellow-600'
             />
-            <button
-              onClick={onToggleExpand}
-              className='h-3 w-3 rounded-full bg-green-500 transition-colors hover:bg-green-600'
-            />
+            {canBeExpanded && (
+              <button
+                onClick={onToggleExpand}
+                className='h-3 w-3 rounded-full bg-green-500 transition-colors hover:bg-green-600'
+              />
+            )}
           </div>
-          <div className='text-primary-4 font-mono text-sm'>{title}</div>
+          <div className='font-mono text-sm'>{title}</div>
           <div className='w-16' />
         </div>
 
-        {/* Window Content */}
         <div
-          className='overflow-auto p-6'
-          style={{ height: 'calc(100% - 40px)' }}
+          className={cn(
+            'overflow-auto p-6',
+            isExpanded ? 'h-[calc(100%-40px)]' : ''
+          )}
         >
           {isMounted ? children : null}
         </div>
