@@ -10,7 +10,11 @@ export function Pattern() {
   const { pattern } = useAppearanceProvider()
   const className = PATTERN_CONFIG[pattern as PatternType]?.className
 
-  return <div className={cn(`fixed inset-0 z-[-1]`, className)} />
+  return (
+    <div
+      className={cn(`absolute inset-0 left-0 top-0 h-full w-full`, className)}
+    />
+  )
 }
 
 export default function PatternSelector() {

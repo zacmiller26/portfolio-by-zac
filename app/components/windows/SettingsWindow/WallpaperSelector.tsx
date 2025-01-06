@@ -15,7 +15,7 @@ export function Wallpaper() {
   return (
     <div
       className={cn(
-        'fixed inset-0 z-[-2] h-full w-full bg-cover bg-bottom bg-no-repeat opacity-10'
+        'absolute left-0 top-0 z-10 h-full w-full bg-cover bg-bottom bg-no-repeat opacity-10'
       )}
       style={{ backgroundImage: `url(${url})` }}
     />
