@@ -15,7 +15,7 @@ export function Wallpaper() {
   return (
     <div
       className={cn(
-        'absolute left-0 top-0 z-10 h-full w-full bg-cover bg-bottom bg-no-repeat opacity-10'
+        'absolute left-0 top-0 z-10 h-full w-full bg-cover bg-bottom bg-no-repeat opacity-10 blur-md'
       )}
       style={{ backgroundImage: `url(${url})` }}
     />
@@ -50,7 +50,14 @@ export default function WallpaperSelector() {
                 className={className}
               />
             ) : (
-              <span className={className} />
+              <span
+                className={cn(
+                  className,
+                  'inline-flex justify-center px-3 text-center'
+                )}
+              >
+                <span className='opacity-90'>None</span>
+              </span>
             )}
           </button>
         )
