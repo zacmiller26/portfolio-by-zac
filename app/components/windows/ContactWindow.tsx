@@ -38,7 +38,7 @@ function ContactWindow() {
             href='https://github.com/zacmiller26'
             className='text-sm'
           >
-            /zacmiller26/
+            @zacmiller26
           </StyledLink>
         </StyledListItem>
         <StyledListItem label='Instagram'>
