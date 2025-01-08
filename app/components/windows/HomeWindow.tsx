@@ -32,7 +32,7 @@ function HomeWindow() {
           Hi, {"I'm"} {FIRST_NAME} — a <strong>front-end specialist</strong>{' '}
           passionate about crafting dynamic, scalable interfaces and delivering
           full-stack solutions. With {totalYearsOfExp}+ years of experience,
-          I've transformed ideas into impactful, user-focused products.
+          {"I've"} transformed ideas into impactful, user-focused products.
         </p>
         <p>
           Some of my favorite projects include conceptualizing and building a
