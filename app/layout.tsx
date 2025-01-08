@@ -3,6 +3,7 @@ import './globals.css'
 
 import AppearanceProvider from '@/lib/contexts/appearance-context'
 import { cn } from '@/lib/utils'
+import { Analytics } from '@vercel/analytics/react'
 import type { Metadata } from 'next'
 
 const geistSans = Geist({
@@ -31,6 +32,7 @@ export default function RootLayout({
         className={cn(geistSans.variable, geistMono.variable, 'antialiased')}
       >
         <AppearanceProvider>{children}</AppearanceProvider>
+        <Analytics />
       </body>
     </html>
   )
