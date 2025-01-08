@@ -27,17 +27,20 @@ function HomeWindow() {
           </div>
         </div>
       </div>
-      <p className='text-primary-3'>
-        Hi, {"I'm"} {FIRST_NAME}—a software engineer experienced in building
-        everything from front-end interfaces to full-stack solutions. I bring{' '}
-        {totalYearsOfExp}+ years of experience turning ideas into impactful,
-        user-friendly products.
-        <br />
-        <br />
-        Some of my favorite projects include conceptualizing and building a
-        gaming platform used by 70M+ users, and leading the front-end overhaul
-        of a flagship product for an industry-leading enterprise.
-      </p>
+      <div className='text-primary-3 flex flex-col gap-3'>
+        <p>
+          Hi, {"I'm"} {FIRST_NAME} — a <strong>front-end specialist</strong>{' '}
+          passionate about crafting dynamic, scalable interfaces and delivering
+          full-stack solutions. With {totalYearsOfExp}+ years of experience,
+          I've transformed ideas into impactful, user-focused products.
+        </p>
+        <p>
+          Some of my favorite projects include conceptualizing and building a
+          gaming platform that generated <em>over</em> a billion page views, and
+          leading the front-end overhaul of a flagship product for an
+          industry-leading enterprise.
+        </p>
+      </div>
     </div>
   )
 }
