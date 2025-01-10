@@ -1,9 +1,10 @@
 'use client'
 
-import DockContainer from '@/app/components/DockContainer'
-import { DockIcon } from '@/app/components/DockIcon'
-import { MacOSWindow } from '@/app/components/Window'
-import { windowConfigs } from '@/app/components/windows'
+import DockContainer from '@/app/desktop/components/DockContainer'
+import { DockIcon } from '@/app/desktop/components/DockIcon'
+import TopBar from '@/app/desktop/components/TopBar'
+import { MacOSWindow } from '@/app/desktop/components/Window'
+import { windowConfigs } from '@/app/desktop/components/windows'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export function Dock() {
@@ -34,7 +35,8 @@ export function Dock() {
   }, [])
 
   return (
-    <div className='flex min-h-dvh flex-col'>
+    <div className='relative flex min-h-dvh flex-col'>
+      <TopBar />
       <div className='relative flex flex-1 flex-col p-2 md:p-4'>
         <div className='relative flex-1 p-4' ref={windowContainerRef}>
           {windowContainerRef.current &&

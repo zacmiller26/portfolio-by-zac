@@ -1,7 +1,7 @@
 'use client'
 
-import { Pattern } from '@/app/components/windows/SettingsWindow/PatternSelector'
-import { Wallpaper } from '@/app/components/windows/SettingsWindow/WallpaperSelector'
+import { Pattern } from '@/app/desktop/components/windows/SettingsWindow/PatternSelector'
+import { Wallpaper } from '@/app/desktop/components/windows/SettingsWindow/WallpaperSelector'
 import {
   DEFAULT_PATTERN_KEY,
   DEFAULT_THEME_KEY,
