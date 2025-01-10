@@ -1,4 +1,4 @@
-import { WindowConfig } from '@/app/components/windows/types'
+import { WindowConfig } from '@/app/desktop/components/windows/types'
 import { FULL_NAME } from '@/lib/constants'
 import Avatar from '@/ui/Avatar'
 import ClickToReveal from '@/ui/ClickToReveal'

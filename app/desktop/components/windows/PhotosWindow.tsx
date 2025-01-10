@@ -1,4 +1,4 @@
-import { WindowConfig } from '@/app/components/windows/types'
+import { WindowConfig } from '@/app/desktop/components/windows/types'
 import { Image } from 'lucide-react'
 
 export const windowConfig: WindowConfig = {

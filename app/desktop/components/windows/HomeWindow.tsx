@@ -1,4 +1,4 @@
-import { WindowConfig } from '@/app/components/windows/types'
+import { WindowConfig } from '@/app/desktop/components/windows/types'
 import { FIRST_NAME, FULL_NAME, TITLE } from '@/lib/constants'
 import { yearsSince } from '@/lib/utils'
 import Avatar from '@/ui/Avatar'
@@ -21,13 +21,13 @@ function HomeWindow() {
         <div className='flex flex-col gap-0'>
           <h1 className='text-4xl font-extrabold'>{FULL_NAME}</h1>
           <div className='flex flex-col gap-0'>
-            <h3 className='text-accent-3 font-mono text-sm font-semibold leading-4 tracking-wider'>
+            <h3 className='font-mono text-sm font-semibold leading-4 tracking-wider text-accent-3'>
               {TITLE}
             </h3>
           </div>
         </div>
       </div>
-      <div className='text-primary-3 flex flex-col gap-3'>
+      <div className='flex flex-col gap-3 text-primary-3'>
         <p>
           Hi, {"I'm"} {FIRST_NAME} — a <strong>front-end specialist</strong>{' '}
           passionate about crafting dynamic, scalable interfaces and delivering

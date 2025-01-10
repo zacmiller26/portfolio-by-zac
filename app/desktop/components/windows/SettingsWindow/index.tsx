@@ -1,7 +1,7 @@
-import PatternSelector from '@/app/components/windows/SettingsWindow/PatternSelector'
-import ThemeSelector from '@/app/components/windows/SettingsWindow/ThemeSelector'
-import WallpaperSelector from '@/app/components/windows/SettingsWindow/WallpaperSelector'
-import { WindowConfig } from '@/app/components/windows/types'
+import PatternSelector from '@/app/desktop/components/windows/SettingsWindow/PatternSelector'
+import ThemeSelector from '@/app/desktop/components/windows/SettingsWindow/ThemeSelector'
+import WallpaperSelector from '@/app/desktop/components/windows/SettingsWindow/WallpaperSelector'
+import { WindowConfig } from '@/app/desktop/components/windows/types'
 import { CogIcon } from 'lucide-react'
 
 export const windowConfig: WindowConfig = {
@@ -37,7 +37,7 @@ function SelectorContainer({ children }: CommonProps) {
 }
 
 function SelectorLabel({ children }: CommonProps) {
-  return <p className='text-accent-3 text-sm font-semibold'>{children}</p>
+  return <p className='text-sm font-semibold text-accent-3'>{children}</p>
 }
 
 export default windowConfig
