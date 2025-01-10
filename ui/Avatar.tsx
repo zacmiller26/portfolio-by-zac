@@ -1,11 +1,11 @@
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
-export default function Avatar(props: { className?: string }) {
+export default function Avatar(props: CommonProps) {
   return (
     <div
       className={cn(
-        'border-surface-4 relative h-12 w-12 rounded-full border bg-black/20',
+        'relative h-12 w-12 rounded-full border border-surface-4 bg-black/20',
         props.className
       )}
     >
@@ -20,6 +20,7 @@ export default function Avatar(props: { className?: string }) {
           objectPosition: 'top center'
         }}
       />
+      {props.children}
     </div>
   )
 }

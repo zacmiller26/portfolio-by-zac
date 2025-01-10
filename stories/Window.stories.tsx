@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import AppsWindowConfig from '@/app/components/windows/AppsWindow'
-import ContactWindowConfig from '@/app/components/windows/ContactWindow'
-import HomeWindowConfig from '@/app/components/windows/HomeWindow'
-import SettingsWindowConfig from '@/app/components/windows/SettingsWindow'
+import AppsWindowConfig from '@/app/desktop/components/windows/AppsWindow'
+import ContactWindowConfig from '@/app/desktop/components/windows/ContactWindow'
+import HomeWindowConfig from '@/app/desktop/components/windows/HomeWindow'
+import SettingsWindowConfig from '@/app/desktop/components/windows/SettingsWindow'
 import AppearanceProvider from '@/lib/contexts/appearance-context'
 import WindowContainer from '@/ui/WindowContainer'
 
