@@ -6,11 +6,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-const INITIALIZING_STAGES = [
-  'Booting creativity kernel...',
-  'Running caffeine protocol...',
-  "😸 Authenticating with Tegan's approval..."
-]
+const INITIALIZING_STAGES = ['Initializing profile...']
 
 export default function LoadingSpinner() {
   const router = useRouter()
@@ -29,7 +25,7 @@ export default function LoadingSpinner() {
           clearInterval(timer)
 
           // Trigger redirect
-          const redirectAfterMs = 2000
+          const redirectAfterMs = 1200
           setTimeout(() => router.push('/desktop'), redirectAfterMs)
           // Show fallback link if redirect fails after 5 seconds
           setTimeout(() => setShowFallbackLink(true), redirectAfterMs + 5000)
@@ -37,7 +33,7 @@ export default function LoadingSpinner() {
           return prevStage
         }
       })
-    }, 2000) // Change message every 2 seconds
+    }, 1500) // Change message every 1.5 seconds
 
     return () => clearInterval(timer)
   }, [router])
